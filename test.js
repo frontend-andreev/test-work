@@ -60,13 +60,12 @@ let api_paths = api_path_templates.map((api_path_template) =>
 });
 
 function replaceString(str, obj) {
-  let resultStr = ''
+  let resultStr = str
   for (const x in obj) {
-    resultStr = str.replace(new RegExp(x, 'g'), obj[x]);
+    resultStr = resultStr.replace(new RegExp(x, 'g'), obj[x]);
   }
   resultStr = resultStr
               .trim()
-              .toLowerCase()
               .replace(/^-+|%|-+|$/g, '');
   return encodeURIComponent(resultStr).replace(/%2F/g, "/")
 };
@@ -75,4 +74,3 @@ console.log(JSON.stringify(api_paths));
 
 // Ожидаемый результат
 let expected_result = ["/api/items/20/John%20Dow","/api/items/20/QA","/api/items/20/100"];
-

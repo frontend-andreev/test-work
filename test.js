@@ -32,9 +32,7 @@ class Api
 	 */
 	get_api_path(object, template)
 	{
-		let result = replaceString(template, object);
-
-		return result;
+		return replaceString(template, object);
 	}
 }
 
@@ -62,12 +60,15 @@ let api_paths = api_path_templates.map((api_path_template) =>
 });
 
 function replaceString(str, obj) {
+  let resultStr = ''
   for (const x in obj) {
-    str = str.replace(new RegExp(x, 'g'), obj[x]);
+    resultStr = str.replace(new RegExp(x, 'g'), obj[x]);
   }
-  str = str.replace(/%/g, '')
-  str = str.replace(/ /g, '%' + obj.id)
-  return str;
+  resultStr = resultStr
+              .trim()
+              .toLowerCase()
+              .replace(/^-+|%|-+|$/g, '');
+  return encodeURIComponent(resultStr).replace(/%2F/g, "/")
 };
 
 console.log(JSON.stringify(api_paths));
